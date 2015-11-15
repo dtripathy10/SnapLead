@@ -4,7 +4,76 @@ body {
   margin-top: 0px;
 }
 
+.lead-app {
+  width : 100%;
+  height : 100%;
+}
+.leadx-sidebar {
+  background-color: #3e474f;
+  position:fixed;
+  margin-right:10px;
+  height : 100%;
+  width: 70px;
+  z-index: 101;
+}
 
+.leadx-sidebar-menu {
+  position:static;
+  width:100%;
+}
+
+.leadx-sidebar-menu>li>a{
+  margin-top: 20px;
+}
+.white, .white a {
+  color: #fff;
+}
+
+.navbar-right {
+  padding-right: 10px;
+}
+.leadx-module {
+  margin-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  padding-left: 20px;
+}
+
+hr{
+  padding-top: 0px;
+  margin-top:  0px;
+  padding-bottom: 0px;
+  margin-bottom:  0px;
+}
+
+
+.nav .navbar-social > a {
+    padding:0;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+    background-color: transparent;
+}
+
+.lead-page {
+    position:relative;
+    margin-left:70px;
+    border-radius: 19px 19px 19px 19px;
+    -moz-border-radius: 19px 19px 19px 19px;
+    -webkit-border-radius: 19px 19px 19px 19px;
+    border: 0px solid #000000;
+}
+
+.navbar-default {
+  background: #edeff0;
+}
+
+.leadx-navbar {
+    border-bottom: 1px solid #edeff0;
+          background-color: #f9fafa;
+    box-shadow: 0 1px 0 0 #e8ebed;
+    border-radius: 4px 4px 0 0;
+
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;

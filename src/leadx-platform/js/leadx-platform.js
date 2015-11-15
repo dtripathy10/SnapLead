@@ -54,7 +54,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('logout', {
-            url: '/logout',
+            url: '/login',
             templateUrl: 'partials/login.html',
             controller: 'LogoutModalCtrl',
             data: {
@@ -128,11 +128,12 @@ app.controller('LoginModalCtrl', function ($scope,$rootScope,$state) {
   $scope.submit = function (email, password) {
     var user = {"email" : email, "password" : password};
     $rootScope.currentUser = user;
-    if(user.email == "demo") {
-      return $state.go('dashBoard.cardLayout');
-    }else {
-      alert("User name is demo");
-    }
+    // if(user.email == "demo") {
+    //   return $state.go('dashBoard.cardLayout');
+    // }else {
+    //   alert("User name is demo");
+    // }
+    $state.go('dashBoard.cardLayout');
   };
 });
 
