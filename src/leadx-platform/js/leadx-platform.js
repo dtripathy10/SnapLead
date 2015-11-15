@@ -53,10 +53,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
               requireLogin: true
             }
         })
+        .state('logout', {
+            url: '/logout',
+            templateUrl: 'partials/login.html',
+            controller: 'LogoutModalCtrl',
+            data: {
+              requireLogin: true
+            }
+        })
         .state('login', {
             url: '/login',
             templateUrl: 'partials/login.html',
             controller: 'LoginModalCtrl',
+
             data: {
               requireLogin: false
             }
@@ -96,111 +105,40 @@ app.filter('inSlicesOf',
   );
  
  //authentication integration
-// app.js
-// loginModal.js
+//http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
 
-
-// app.service('loginModal', function ($modal, $rootScope) {
-
-//   function assignCurrentUser (user) {
-//     $rootScope.currentUser = user;
-//     return user;
-//   }
-
-//   return function() {
-//     var instance = $modal.open({
-//       templateUrl: 'partials/login.html',
-//       controller: 'LoginModalCtrl',
-//       controllerAs: 'LoginModalCtrl'
-//     })
-
-//     return instance.result.then(assignCurrentUser);
-//   };
-
-// });
-
-// app.run(function ($rootScope, $state, loginModal) {
-
-//   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-//     var requireLogin = toState.data.requireLogin;
-
-//     if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
-//       event.preventDefault();
-
-//       loginModal()
-//         .then(function () {
-//           return $state.go(toState.name, toParams);
-//         })
-//         .catch(function () {
-//           return $state.go('signin');
-//         });
-//     }
-//   });
-
-// });
-
-// LoginModalCtrl.js
-
-app.run(function ($rootScope,$location) {
+app.run(function ($rootScope,$state,$stateParams) {
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
+    $rootScope.$stateParams = $stateParams;
+    $rootScope.$state = $state;
     if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
-      //event.preventDefault();
-      //http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
-      // get me a login modal!
-      //return $location.path('/login');
+      event.preventDefault();
+      return $state.go('login');
     }
   });
 
 });
 
 
-app.controller('LoginModalCtrl', function ($scope) {
-  this.submit = function (email, password) {
-    alert("OK");
+app.controller('LoginModalCtrl', function ($scope,$rootScope,$state) {
+
+  $rootScope.currentUser = undefined;
+
+  $scope.submit = function (email, password) {
+    var user = {"email" : email, "password" : password};
+    $rootScope.currentUser = user;
+    if(user.email == "demo") {
+      return $state.go('dashBoard.cardLayout');
+    }else {
+      alert("User name is demo");
+    }
   };
 });
 
-// app.config(function ($httpProvider) {
-
-//   $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
-//     var loginModal, $http, $state;
-
-//     // this trick must be done so that we don't receive
-//     // `Uncaught Error: [$injector:cdep] Circular dependency found`
-//     $timeout(function () {
-//       loginModal = $injector.get('loginModal');
-//       $http = $injector.get('$http');
-//       $state = $injector.get('$state');
-//     });
-
-//     return {
-//       responseError: function (rejection) {
-//         if (rejection.status !== 401) {
-//           return rejection;
-//         }
-
-//         var deferred = $q.defer();
-
-//         loginModal()
-//           .then(function () {
-//             deferred.resolve( $http(rejection.config) );
-//           })
-//           .catch(function () {
-//             $state.go('welcome');
-//             deferred.reject(rejection);
-//           });
-
-//         return deferred.promise;
-//       }
-//     };
-//   });
-
-// });
-
 
 app.controller('customersCtrl', function($scope, $http) {
-  //$scope.names = response.records;
+
 });
 
 
@@ -215,11 +153,16 @@ app.controller('listLayoutController', function($scope, $http) {
 app.controller('profileController', function($scope, $http) {
 });
 
-app.controller('appControler', function($scope, $http) {
-  $scope.names = response.records;
+app.controller('appControler', function($scope, $http, $location) {
+  
 });
 
 app.controller('dashBoardController', function($scope, $http) {
   $scope.names = response.records;
 });
+
+app.controller('LogoutModalCtrl', function($scope, $rootScope) {
+  $rootScope.currentUser = undefined;
+});
+
 

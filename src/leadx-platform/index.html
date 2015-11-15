@@ -18,7 +18,7 @@
 
 
 </head>
-<body ng-app="myApp">
+<body ng-app="myApp" ng-controller="appControler">
 
     <nav class="navbar  navbar-default " >
       <div class="container">
@@ -29,18 +29,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#cardLayout">Leadx Platform</a>
+          <a class="navbar-brand" ui-sref="dashBoard.cardLayout">Leadx Platform</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a ui-sref="dashBoard.cardLayout">Dashboard</a></li>
+            <li class='active'><a ui-sref="dashBoard.cardLayout">Dashboard</a></li>
            </ul>
     <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+            <li class="dropdown active" >
+              <a href="#" ng-if="$root.currentUser==undefined" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
+
+               <a href="#" ng-if="$root.currentUser != undefined" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$root.currentUser.email}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#profile">Setting</a></li>
-                <li><a href="#login">Sign Out</a></li>
+
+
+                <li><a ui-sref="profile">Setting</a></li>
+                <li><a ui-sref="logout">Sign Out</a></li>
 
               </ul>
             </li>

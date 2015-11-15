@@ -1,17 +1,12 @@
 
 <div class="container">
 
-<form class="form-signin" ng-submit="LoginModalCtrl.submit(_email, _password)">
+<form class="form-signin" ng-submit="LoginModalCtrl">
 <h2 class="form-signin-heading">Please sign in</h2>
-<label for="inputEmail" class="sr-only">Email address</label>
-<input type="email"  ng-model="_email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+<label for="inputEmail" class="sr-only">User ID</label>
+<input type="text"  ng-model="_email" class="form-control" placeholder="User Id/Password (demo)" autofocus required>
 <label for="inputPassword" class="sr-only">Password</label>
-<input type="password" ng-model="_password" id="inputPassword" class="form-control" placeholder="Password" required>
-<div class="checkbox">
-<label>
-<input type="checkbox" value="remember-me"> Remember me
-</label>
-</div>
-<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+<input type="password" ng-model="_password" id="inputPassword" class="form-control" placeholder="Password(demo)" required>
+<button class="btn btn-lg btn-primary btn-block" ng-click="submit(_email, _password)">Sign in</button>
 </form>
 </div>
