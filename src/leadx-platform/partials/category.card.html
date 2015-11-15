@@ -1,0 +1,14 @@
+
+  <div class="row" ng-repeat="row in names | inSlicesOf:3">
+  <div class="col-sm-4 bootcards-list" ng-repeat="x in row"> 
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Base Card Title</h3>
+      </div>
+      <div class="panel-body">
+        <p class="lead">{{ x.Name + ', ' + x.Country }}</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
